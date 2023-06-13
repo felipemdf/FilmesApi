@@ -20,6 +20,7 @@ public class Filme
     [Range(70, 250, ErrorMessage = "A duração deve ser entre 70 e 250 minutos")]
     public int Duracao { get; set; }
 
+    public virtual ICollection<Sessao> Sessoes { get; set; }
 
     public Filme(string titulo, string genero, int duracao)
     {
