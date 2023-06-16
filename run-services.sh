@@ -17,6 +17,10 @@ docker compose up -d
 services_status=$(docker-compose ps --services --filter "status=running")
 
 if [ -n "$services_status" ]; then
+    # Execute dabase migrations
+    sleep 5
+    dotnet ef database update
+    
     echo "Os serviços estão em execução: $services_status"
 else
     echo "Ocorreu um erro ao iniciar os serviços."
