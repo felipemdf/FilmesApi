@@ -19,8 +19,9 @@ services:
     ports:
       - "8080:80"
     environment:
-      - ConnectionStrings__DefaultConnection=server=app_db;port=3306;database=filme;user=root;password=admin
+      - ConnectionStrings__DefaultConnection=server=${DB_HOST};port=${DB_PORT};database=${DB_NAME};user=${DB_USER};password=${DB_PASSWORD}
       - ASPNETCORE_URLS=http://+:80
+      - SECRET_KEY_JWT=${SECRET_KEY_JWT}
     networks:
       - dev
 
@@ -30,8 +31,8 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
-      - MYSQL_DATABASE=filme
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     restart: always
     volumes:
       - app_data:/var/lib/mysql

@@ -3,11 +3,13 @@ using FilmesApi.Dtos;
 using FilmesApi.Data;
 using FilmesApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmesApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class EnderecoController : ControllerBase
     {
         private FilmeContext _context;

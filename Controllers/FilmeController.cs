@@ -4,6 +4,7 @@ using FilmesApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmesApi.Controllers;
 
@@ -12,6 +13,7 @@ namespace FilmesApi.Controllers;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class FilmeController : ControllerBase
 {
     private FilmeContext _context;
@@ -58,6 +60,11 @@ public class FilmeController : ControllerBase
     [ProducesResponseType(200)]
     public IEnumerable<ReadFilmeDto> RecuperaFilmes([FromQuery] int skip = 0, [FromQuery] int take = 5, [FromQuery] string? nomeCinema = null)
     {
+        if (nomeCinema == null)
+        {
+            return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take).ToList());
+        }
+
         return _mapper.Map<List<ReadFilmeDto>>(_context.Filmes.Skip(skip).Take(take)
             .Where(filme => filme.Sessoes.Any(sessao => sessao.Cinema.Nome == nomeCinema)).ToList());
     }

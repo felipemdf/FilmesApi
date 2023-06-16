@@ -4,12 +4,14 @@ using FilmesApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmesApi.Controllers;
 
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class CinemaController : ControllerBase
 {
     private FilmeContext _context;
